@@ -157,6 +157,9 @@ public class World {
   */
   public City addCity(String name, Nation owner, double pop, int richness, int x_city, int y_city, ArrayList<Tile> linked_tiles, ArrayList<Building> buildings) {
     City c = new City(name, owner, pop, richness, x_city, y_city, linked_tiles, buildings);
+    if (tilesInConflict(c)) {
+      return null;
+    }
     this.map[x_city][y_city] = c;
     this.world_cities.add(c);
     return c;
@@ -260,6 +263,14 @@ public class World {
   public int[] getSize() {
     int[] size = {this.getWidth(), this.getHeight()};
     return size;
+  }
+
+/**
+  *Retourne une liste de type ArrayList(City) des objets City contenus dans la grille
+  *@return une liste de type ArrayList(City) des objets City contenus dans la grille
+  */
+  public ArrayList<City> getWorldCities() {
+    return this.world_cities;
   }
 
 }

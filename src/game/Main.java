@@ -24,7 +24,6 @@ public class Main {
 
     ArrayList<Integer> coord_ostie = ostie.getCoord();
     ArrayList<Tile> vois = w.consvois(coord_ostie.get(0), coord_ostie.get(1));
-    System.out.println(vois);
     ostie.addLinkedTile(vois);
     ostie.addBuilding(farm);
     ostie.addBuilding(mine);
@@ -34,7 +33,18 @@ public class Main {
     //System.out.println(ostie.getRichness());
 
     City solon = w.addCity("Solon", concilium, 100.0, 50, 0, 0, null, null);
-    concilium.addCity(solon);
+    if (solon == null) {
+      System.out.println("Impossible de fonder une ville ici: une autre ville est trop proche");
+    } else {
+      concilium.addCity(solon);
+      ArrayList<Tile> vois_solon = w.consvois(solon.getCoord().get(0), solon.getCoord().get(1));
+      solon.addLinkedTile(vois_solon);
+      System.out.println("La ville de "+solon.getName()+" a été fondée !");
+    }
     System.out.println(w);
+    for (City c : w.getWorldCities()) {
+      System.out.println(c.getName());
+
+    }
   }
 }
