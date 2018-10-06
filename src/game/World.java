@@ -4,10 +4,12 @@ import java.util.*;
 
 /**
   *World permet de générer puis de gérer une grille de Tile de dimension 2.
-  *Un objet World est caractérisé par une largeur, une hauteur, un nombre d'objet DemographicResource, un nombre d'objet RicherResource et une grille d'objet Tile.
+  *Un objet World est caractérisé par une largeur, une hauteur, un nombre d'objet DemographicResource, un nombre d'objet RicherResource, une grille d'objets Tile, une liste d'objets City, une grille d'objets Nation.
   *@see Tile
   *@see DemographicResource
   *@see RicherResource
+  *@see City
+  *@see Nation
   */
 public class World {
 
@@ -31,11 +33,14 @@ public class World {
   *la grille d'objet Tile
   */
   private Tile[][] map;
-
 /**
   *la liste de tous les objets City dans la grille
   */
   private ArrayList<City> world_cities;
+/**
+  *la liste de tous les objets Nation
+  */
+  private ArrayList<Nation> all_nations;
 
 /**
   *Constructeur qui initialise une grille de type Tile[][] de taille width*height
@@ -47,6 +52,7 @@ public class World {
     this.height = height;
     this.map = new Tile[this.width][this.height];
     this.world_cities = new ArrayList<>();
+    this.all_nations = new ArrayList<>();
   }
 
 /**
@@ -162,6 +168,7 @@ public class World {
     }
     this.map[x_city][y_city] = c;
     this.world_cities.add(c);
+    owner.addCity(c);
     return c;
   }
 
@@ -207,6 +214,23 @@ public class World {
     }
     City c = this.addCity(name, null, pop, richness, x_city, y_city, null, null);
     return c;
+  }
+
+/**
+  *Méthode permettant de créer puis d'ajouter un objet Nation à la liste all_nations
+  *@param name (String) le nom donné à la nation
+  *@return l'objet Nation créé, si aucune nation ne porte pas déjà le nom donné en argument, null sinon
+  *@see Nation
+  */
+  public Nation addNation(String name) {
+    Nation new_nation = new Nation(name);
+    for (Nation n : this.all_nations) {
+      if (n.getName().equals(name)) {
+        return null;
+      }
+    }
+    this.all_nations.add(new_nation);
+    return new_nation;
   }
 
 /**
@@ -271,6 +295,14 @@ public class World {
   */
   public ArrayList<City> getWorldCities() {
     return this.world_cities;
+  }
+
+/**
+  *Retourne une liste de type ArrayList(Nation) des objets Nation
+  *@return une liste de type ArrayList(Nation) des objets Nation
+  */
+  public ArrayList<Nation> getAllNations() {
+    return this.all_nations;
   }
 
 }
