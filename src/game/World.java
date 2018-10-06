@@ -33,6 +33,11 @@ public class World {
   private Tile[][] map;
 
 /**
+  *la liste de tous les objets City dans la grille
+  */
+  private ArrayList<City> world_cities;
+
+/**
   *Constructeur qui initialise une grille de type Tile[][] de taille width*height
   *@param width la largeur de la grille
   *@param height la hauteur de la grille
@@ -41,6 +46,7 @@ public class World {
     this.width = width;
     this.height = height;
     this.map = new Tile[this.width][this.height];
+    this.world_cities = new ArrayList<>();
   }
 
 /**
@@ -98,6 +104,7 @@ public class World {
     return voisins;
   }
 
+  /*======PAS UTILISé POUR L'INSTANT
   public ArrayList<Tile> consvois2(int x, int y) {
     ArrayList<Tile> res = new ArrayList<>();
     for (int i = -2; i < 3; i++) {
@@ -108,6 +115,28 @@ public class World {
       }
     }
     return res;
+  }*/
+
+/**
+  *Méthode permettant de tester si un objet City récemment ajouté a des Tile en conflit avec tous les autres objets City (attribut linkedTiles) présents dans l'attribut world_cities
+  *@param c (City) l'objet City sur lequel faire le test
+  *@return un booléen qui vaut true si il y a conflit, false sinon
+  *@see City
+  */
+  public boolean tilesInConflict(City c) {
+    ArrayList<Tile> c_linkedTiles = consvois(c.getCoord().get(0), c.getCoord().get(1));
+    if (this.world_cities != null) {
+      for (City w_city : this.world_cities) {
+        for (Tile w_city_tile : w_city.getLinkedTiles()) {
+          for (Tile c_linkedTile : c_linkedTiles) {
+            if (w_city_tile.getCoord().equals(c_linkedTile.getCoord())) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
   }
 
 /**
@@ -129,6 +158,7 @@ public class World {
   public City addCity(String name, Nation owner, double pop, int richness, int x_city, int y_city, ArrayList<Tile> linked_tiles, ArrayList<Building> buildings) {
     City c = new City(name, owner, pop, richness, x_city, y_city, linked_tiles, buildings);
     this.map[x_city][y_city] = c;
+    this.world_cities.add(c);
     return c;
   }
 

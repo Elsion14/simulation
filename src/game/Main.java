@@ -30,8 +30,8 @@ public class Main {
     ostie.addBuilding(mine);
     ostie.setDemography();
     ostie.setRichness();
-    System.out.println(ostie.getDemography());
-    System.out.println(ostie.getRichness());
+    //System.out.println(ostie.getDemography());
+    //System.out.println(ostie.getRichness());
 
     City solon = w.addCity("Solon", concilium, 100.0, 50, 0, 0, null, null);
     concilium.addCity(solon);

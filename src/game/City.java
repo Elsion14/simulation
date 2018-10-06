@@ -133,8 +133,8 @@ public class City extends Tile {
   }
 
 /**
-  *Ajoute un objet Tile à la liste de Tile liées linked_tiles
-  *@param tile (Tile) Tile à ajouter à la liste des Tile liées
+  *Ajoute des objets Tile à la liste de Tile liées linked_tiles
+  *@param tile_list (ArrayList(Tile)) liste d'objet Tile que la méthode parcourt, pour ajouter chaque élément à la liste des Tile liées
   *@see Tile
   */
   public void addLinkedTile(ArrayList<Tile> tile_list) {

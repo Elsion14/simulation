@@ -29,7 +29,6 @@ public class Nation {
 
 /**
   *@param name (String) le nom
-  *@param cities (ArrayList(City)) la liste des objets City
   */
   public Nation(String name) {
     this.name = name;
