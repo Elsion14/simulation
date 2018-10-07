@@ -1,10 +1,10 @@
 package game;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
   *Nation permet, entre autre, de rassembler plusieurs objets City.
-  *Nation est caractérisée par un nom, une population, une richesse et une liste de City.
+  *Nation est caractérisée par un nom, une population, une richesse, une liste de City et des relations.
   *@see City
   */
 public class Nation {
@@ -26,6 +26,12 @@ public class Nation {
   */
   private ArrayList<City> cities;
 
+/**
+  *la liste des relations, sous forme d'objet Relation
+  *@see Relation
+  */
+  private Relation relations;
+
 
 /**
   *@param name (String) le nom
@@ -33,6 +39,7 @@ public class Nation {
   public Nation(String name) {
     this.name = name;
     this.cities = new ArrayList<>();
+    this.relations = new Relation();
   }
 
 /**
@@ -57,5 +64,23 @@ public class Nation {
   */
   public ArrayList<City> getCities() {
     return this.cities;
+  }
+
+/**
+  *Retourne sous forme de Map(Nation,Integer) la liste des relations de la nation
+  *@return sous forme de Map(Nation,Integer) la liste des relations de la nation
+  */
+  public Map<Nation,Integer> getRelations() {
+    return this.relations.getRelations();
+  }
+
+/**
+  *Méthode permettant d'ajouter une relation à l'attribut relations, en faisant appel à la méthode setRelations(Nation, int) de la classe Relation
+  *@param nation (Nation) une nation
+  *@param value (int) une valeur
+  *@see Relation#setRelations
+  */
+  public void setRelations(Nation nation, int value) {
+    this.relations.setRelations(nation, value);
   }
 }
